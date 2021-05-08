@@ -1,0 +1,13 @@
+sudo: required
+ services:
+ - docker
+
+ before_install:
+  - docker build -t matheusmorozetti/Klever-DevOps-test -f Dockerfile.dev . 
+
+ script:
+  - docker run -e CI=true matheusmorozetti/Klever-DevOps-test npm run test
+  
+language:
+  -generic
+  
