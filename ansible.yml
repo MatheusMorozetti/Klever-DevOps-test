@@ -1,0 +1,14 @@
+- name: Klever-DevOps-test
+  hosts: localhost
+  vars_files:
+    - ./files/vars_playbook.yml 
+  tasks:
+  - command: "docker build -t {{rep}}/{{image}} ."
+    name: "build dockerfile"
+  - command: "docker push {{rep}}/{{image}}"
+  - name: Template pod-klever
+    ansible.builtin.template:
+      src: /Klever-DevOps-test/pod-klever.j2
+      dest: /Klever-DevOps-test/pod-klever.yml
+  - command: "kubectl apply -f pod-klever.yml"
+    name: "run pod-klever"

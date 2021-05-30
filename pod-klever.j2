@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-klever
+  labels:
+    app: pod-klever
+spec:
+  containers: 
+    - name: pod-klever
+      image: {{rep}}/{{image}}
+      ports: 
+        - containerPort: {{port}}
+      readinessProbe:
+        tcpSocket:
+          port: {{port}}
+        initialDelaySeconds: 5
+        periodSeconds: 10
+      livenessProbe:
+        tcpSocket:
+          port: {{port}}
+        initialDelaySeconds: 10
+        periodSeconds: 15
